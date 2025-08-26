@@ -1,0 +1,368 @@
+:root {
+    --card-bg: rgba(255, 255, 255, .12);
+    --card-br: 24px;
+    --tick: rgba(255, 255, 255, .75);
+    --text: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    --accent: #9ae6ff;
+    --accent-2: #ffd29a;
+}
+
+/* Page layout */
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    color: var(--text);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: #0b1220;
+}
+
+/* Animated gradient sky that subtly shifts over time */
+.sky {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(1200px 1200px at 70% -10%, #ffe7bd 0%, transparent 45%),
+        radial-gradient(1200px 1200px at 30% 110%, #a1d7ff 0%, transparent 45%),
+        linear-gradient(120deg, #0c1630 0%, #111b38 60%, #152241 100%);
+    animation: skyShift 30s linear infinite;
+    filter: saturate(1.05);
+}
+
+@keyframes skyShift {
+    0% {
+        filter: hue-rotate(0deg) brightness(1);
+    }
+
+    50% {
+        filter: hue-rotate(15deg) brightness(1.05);
+    }
+
+    100% {
+        filter: hue-rotate(0deg) brightness(1);
+    }
+}
+
+/* Stars (night accent) */
+.stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        radial-gradient(2px 2px at 10% 20%, rgba(255, 255, 255, .7) 50%, transparent 55%),
+        radial-gradient(1.5px 1.5px at 40% 70%, rgba(255, 255, 255, .6) 50%, transparent 55%),
+        radial-gradient(1.5px 1.5px at 80% 30%, rgba(255, 255, 255, .5) 50%, transparent 55%),
+        radial-gradient(1px 1px at 65% 15%, rgba(255, 255, 255, .5) 50%, transparent 55%),
+        radial-gradient(1px 1px at 25% 85%, rgba(255, 255, 255, .45) 50%, transparent 55%);
+    opacity: .0;
+    transition: opacity .8s ease;
+    animation: twinkle 6s linear infinite;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: .15
+    }
+
+    50% {
+        opacity: .25
+    }
+}
+
+/* Floating dust/particles for depth */
+.particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(3px 3px at 15% 40%, rgba(255, 255, 255, .25), transparent 60%),
+        radial-gradient(2px 2px at 75% 60%, rgba(255, 255, 255, .25), transparent 60%),
+        radial-gradient(2px 2px at 55% 20%, rgba(255, 255, 255, .2), transparent 60%),
+        radial-gradient(3px 3px at 35% 80%, rgba(255, 255, 255, .2), transparent 60%);
+    animation: floaty 24s ease-in-out infinite;
+    mix-blend-mode: screen;
+    opacity: .35;
+}
+
+@keyframes floaty {
+    0% {
+        transform: translateY(0) translateX(0)
+    }
+
+    50% {
+        transform: translateY(-18px) translateX(10px)
+    }
+
+    100% {
+        transform: translateY(0) translateX(0)
+    }
+}
+
+.wrap {
+    position: relative;
+    width: min(92vw, 980px);
+    display: grid;
+    gap: 28px;
+    grid-template-columns: 1fr;
+    place-items: center;
+    padding: 24px;
+}
+
+.card {
+    width: min(92vw, 520px);
+    backdrop-filter: blur(14px) saturate(1.1);
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: var(--card-br);
+    box-shadow: var(--shadow);
+    padding: 26px 22px 30px;
+    display: grid;
+    justify-items: center;
+    gap: 18px;
+    position: relative;
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: conic-gradient(from 180deg, rgba(255, 255, 255, .35), transparent 20%, transparent 80%, rgba(255, 255, 255, .35));
+    filter: blur(18px);
+    opacity: .15;
+    z-index: -1;
+}
+
+/* Title row */
+.head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: .9;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+    animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(.9);
+        box-shadow: 0 0 10px var(--accent)
+    }
+
+    50% {
+        transform: scale(1.12);
+        box-shadow: 0 0 18px var(--accent)
+    }
+}
+
+/* ANALOG CLOCK */
+.clock {
+    width: min(70vw, 360px);
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    position: relative;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .08), rgba(255, 255, 255, .02) 60%, transparent 61%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .06), rgba(255, 255, 255, .01) 65%, transparent 66%),
+        rgba(0, 0, 0, .12);
+    box-shadow:
+        inset 0 2px 8px rgba(255, 255, 255, .06),
+        inset 0 -8px 20px rgba(0, 0, 0, .35),
+        0 18px 40px rgba(0, 0, 0, .35);
+    backdrop-filter: blur(6px);
+}
+
+/* ticks */
+.ticks {
+    position: absolute;
+    inset: 0
+}
+
+.tick {
+    position: absolute;
+    left: 50%;
+    top: 6px;
+    width: 2px;
+    height: 14px;
+    background: var(--tick);
+    transform-origin: 50% calc(50% + 174px);
+    opacity: .9;
+}
+
+.tick.major {
+    width: 3px;
+    height: 20px;
+    background: #fff;
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(255, 255, 255, .45);
+}
+
+/* center cap */
+.cap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 12px rgba(255, 255, 255, .65), inset 0 0 8px rgba(0, 0, 0, .5);
+    z-index: 10;
+}
+
+/* hands */
+.hand {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: 50% 100%;
+}
+
+.hour {
+    width: 6px;
+    height: 80px;
+    background: linear-gradient(#fff, #d9e7ff);
+    border-radius: 6px;
+    transform: translate(-50%, -100%) rotate(0deg);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .35), 0 0 10px rgba(255, 255, 255, .35);
+}
+
+.minute {
+    width: 4px;
+    height: 112px;
+    background: linear-gradient(#fff, #e8f6ff);
+    border-radius: 6px;
+    transform: translate(-50%, -100%) rotate(0deg);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .3), 0 0 8px rgba(255, 255, 255, .3);
+}
+
+.second {
+    width: 2px;
+    height: 140px;
+    background: linear-gradient(#ffb199, #ff5b5b);
+    border-radius: 2px;
+    transform: translate(-50%, -100%) rotate(0deg);
+    box-shadow: 0 0 12px rgba(255, 90, 90, .75);
+}
+
+.second-dot {
+    position: absolute;
+    left: 50%;
+    top: 33%;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: #ff6b6b;
+    box-shadow: 0 0 12px rgba(255, 90, 90, .85);
+}
+
+/* DIGITAL section */
+.digital {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+}
+
+.time {
+    font-size: clamp(28px, 6vw, 48px);
+    letter-spacing: .04em;
+    font-weight: 700;
+    text-shadow: 0 0 14px rgba(255, 255, 255, .35);
+}
+
+.date {
+    font-size: clamp(12px, 2.5vw, 16px);
+    opacity: .9;
+}
+
+.zone {
+    font-size: 12px;
+    opacity: .7;
+    border: 1px solid rgba(255, 255, 255, .25);
+    padding: 4px 8px;
+    border-radius: 999px;
+    backdrop-filter: blur(6px);
+}
+
+/* Bottom row */
+.footer {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    opacity: .9;
+    font-size: 12px;
+}
+
+.chip {
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, .22);
+    background: rgba(255, 255, 255, .06);
+    backdrop-filter: blur(6px);
+}
+
+/* Theme modifiers toggled by JS */
+.day .sky {
+    background:
+        radial-gradient(900px 900px at 20% -10%, #fff7cc 0%, transparent 55%),
+        radial-gradient(1000px 1000px at 80% 110%, #b2e6ff 0%, transparent 50%),
+        linear-gradient(160deg, #6ac8ff 0%, #7fd5ff 40%, #b0e1ff 100%);
+    animation-duration: 40s;
+}
+
+.night .stars {
+    opacity: .35
+}
+
+.night .card::after {
+    opacity: .22
+}
+
+.night .second {
+    background: linear-gradient(#9ae6ff, #5ab9ff);
+    box-shadow: 0 0 12px rgba(90, 185, 255, .85)
+}
+
+.night .dot {
+    background: var(--accent-2);
+    box-shadow: 0 0 12px var(--accent-2)
+}
+
+/* Accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .sky,
+    .stars,
+    .particles {
+        animation: none
+    }
+
+    .dot {
+        animation: none
+    }
+}

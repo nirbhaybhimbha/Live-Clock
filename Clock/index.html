@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="sky"></div>
+    <div class="stars"></div>
+    <div class="particles"></div>
+
+    <main class="wrap">
+        <section class="card" id="card">
+            <div class="head">
+                <div class="dot" aria-hidden="true"></div>
+                <div>
+                    <div style="font-weight:700; letter-spacing:.04em;">Live Clock</div>
+                    <div style="font-size:12px;opacity:.8">Smooth analog + digital</div>
+                </div>
+            </div>
+
+            <!-- Analog Clock -->
+            <div class="clock" aria-label="Analog clock showing current time">
+                <div class="ticks" id="ticks"></div>
+                <div class="hand hour" id="hour"></div>
+                <div class="hand minute" id="minute"></div>
+                <div class="hand second" id="second">
+                    <div class="second-dot"></div>
+                </div>
+                <div class="cap" aria-hidden="true"></div>
+            </div>
+
+            <!-- Digital Readout -->
+            <div class="digital">
+                <div class="time" id="time">--:--:--</div>
+                <div class="date" id="date">Loading date…</div>
+                <div class="zone" id="zone"></div>
+            </div>
+
+            <div class="footer">
+                <span class="chip" id="ampm">--</span>
+                <span class="chip" id="dayphase">--</span>
+            </div>
+        </section>
+    </main>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
